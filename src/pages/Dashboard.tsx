@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import { useUrlStore } from "../store/urlStore";
 import UrlTable from "../components/UrlTable";
 import CreateUrlModal from "../components/CreateUrlModal";
+import StatsOverview from "../components/StatsOverview";
+
 
 const Dashboard = () => {
     const { urls, isLoading, error, loadUrls } = useUrlStore();
@@ -37,14 +39,19 @@ const Dashboard = () => {
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
                     </div>
                 )}
-                
+
                 {error && (
                     <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400">
                         {error}
                     </div>
                 )}
 
-                {!isLoading && !error && <UrlTable urls={urls} />}
+                {!isLoading && !error && (
+                    <div className="space-y-6">
+                        <StatsOverview urls={urls} />
+                        <UrlTable urls={urls} />
+                    </div>
+                )}
             </main>
 
             {showCreate && <CreateUrlModal onClose={() => setShowCreate(false)} />}

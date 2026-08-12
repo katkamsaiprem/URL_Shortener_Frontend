@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { ShortUrl } from "../types/url";
 import EditUrlModal from "./EditUrlModal";
 import DeleteDialog from "./DeleteDialog";
+import StatusBadge from "./StatusBadge";
 
 interface Props {
     urls: ShortUrl[];
@@ -14,7 +15,6 @@ const UrlTable = ({ urls }: Props) => {
 
     const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
-    // Copy the short URL to clipboard and show "Copied!" for 2 seconds
     const handleCopy = async (url: ShortUrl) => {
         const shortUrl = `${baseUrl}/${url.shortCode}`;
         try {
@@ -24,6 +24,17 @@ const UrlTable = ({ urls }: Props) => {
         } catch (err) {
             console.error("Failed to copy!", err);
         }
+    };
+
+    const formatDate = (dateString: string | null) => {
+        if (!dateString) return "Never";
+        return new Date(dateString).toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
     };
 
     if (urls.length === 0) {
@@ -45,7 +56,9 @@ const UrlTable = ({ urls }: Props) => {
                             <tr>
                                 <th className="py-4 px-6">Original URL</th>
                                 <th className="py-4 px-6">Short Link</th>
+                                <th className="py-4 px-6">Status</th>
                                 <th className="py-4 px-6">Visits</th>
+                                <th className="py-4 px-6">Created</th>
                                 <th className="py-4 px-6">Expires</th>
                                 <th className="py-4 px-6">Actions</th>
                             </tr>
@@ -75,17 +88,15 @@ const UrlTable = ({ urls }: Props) => {
                                             </button>
                                         </div>
                                     </td>
+                                    <td className="py-4 px-6">
+                                        <StatusBadge expiresAt={url.expiresAt} />
+                                    </td>
                                     <td className="py-4 px-6 font-medium">{url.visitCount}</td>
                                     <td className="py-4 px-6 text-slate-400">
-                                        {url.expiresAt
-                                            ? new Date(url.expiresAt).toLocaleDateString(undefined, {
-                                                year: 'numeric',
-                                                month: 'short',
-                                                day: 'numeric',
-                                                hour: '2-digit',
-                                                minute: '2-digit'
-                                            })
-                                            : "Never"}
+                                        {formatDate(url.createdAt)}
+                                    </td>
+                                    <td className="py-4 px-6 text-slate-400">
+                                        {formatDate(url.expiresAt)}
                                     </td>
                                     <td className="py-4 px-6">
                                         <div className="flex items-center gap-2">
