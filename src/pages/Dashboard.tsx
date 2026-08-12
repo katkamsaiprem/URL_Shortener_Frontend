@@ -1,21 +1,53 @@
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { useAuthStore } from "../store/authStore";
+import { useUrlStore } from "../store/urlStore";
+import UrlTable from "../components/UrlTable";
+import CreateUrlModal from "../components/CreateUrlModal";
 
 const Dashboard = () => {
-    const user = useAuthStore((s) => s.user);
+    const { urls, isLoading, error, loadUrls } = useUrlStore();
+    const [showCreate, setShowCreate] = useState(false);
+
+    // Load URLs when dashboard first mounts
+    useEffect(() => {
+        loadUrls();
+    }, [loadUrls]);
 
     return (
         <div className="min-h-screen bg-slate-900 text-white">
             <Navbar />
-            <main className="p-8 max-w-4xl mx-auto space-y-4">
-                <h1 className="text-3xl font-bold text-indigo-400">Dashboard</h1>
-                <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 space-y-2">
-                    <h2 className="text-xl font-semibold">User Session Active</h2>
-                    <p className="text-slate-300"><strong>User ID:</strong> {user?.id}</p>
-                    <p className="text-slate-300"><strong>Email:</strong> {user?.email}</p>
-                    <p className="text-slate-300"><strong>Name:</strong> {user?.name}</p>
+
+            <main className="p-8 max-w-6xl mx-auto space-y-6">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold text-indigo-400">My URLs</h1>
+                        <p className="text-slate-400 mt-1 text-sm">Manage and track your shortened links</p>
+                    </div>
+                    <button
+                        id="open-create-modal"
+                        onClick={() => setShowCreate(true)}
+                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded font-medium transition shadow-lg shadow-indigo-600/20"
+                    >
+                        + Shorten URL
+                    </button>
                 </div>
+
+                {isLoading && (
+                    <div className="flex items-center justify-center p-12">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
+                    </div>
+                )}
+                
+                {error && (
+                    <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400">
+                        {error}
+                    </div>
+                )}
+
+                {!isLoading && !error && <UrlTable urls={urls} />}
             </main>
+
+            {showCreate && <CreateUrlModal onClose={() => setShowCreate(false)} />}
         </div>
     );
 };
