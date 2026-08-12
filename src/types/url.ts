@@ -19,3 +19,11 @@ export interface UpdateUrlInput {
     originalUrl?: string;
     expiresAt?: string | null;
 }
+
+export type UrlStatusFilter = "all" | "active" | "expired";
+
+export interface UrlFilterParams {
+    search?: string;
+    status?: UrlStatusFilter;
+}
+
