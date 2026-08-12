@@ -1,3 +1,5 @@
+import type { ApiResponse } from "./api";
+
 export interface User {
     id: string;
     name: string; // stored as 'name' on backend, displayed as username
@@ -8,12 +10,7 @@ export interface User {
     updatedAt: string;
 }
 
-export interface ApiResponse<T = unknown> {
-    success: boolean;
-    data?: T;
-    message?: string;
-    error?: string;
-}
+export type { ApiResponse };
 
 export interface RegisterInput {
     username: string;
