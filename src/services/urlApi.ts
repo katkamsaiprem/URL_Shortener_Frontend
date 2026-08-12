@@ -1,9 +1,9 @@
 import api from "./api";
 import type { ApiResponse } from "../types/api";
-import type { CreateUrlInput, ShortUrl, UpdateUrlInput } from "../types/url";
+import type { CreateUrlInput, ShortUrl, UpdateUrlInput, UrlFilterParams } from "../types/url";
 
-export const fetchUrls = async (): Promise<ShortUrl[]> => {
-    const res = await api.get<ApiResponse<{ urls: ShortUrl[] }>>("/api/v1/urls");
+export const fetchUrls = async (params?: UrlFilterParams): Promise<ShortUrl[]> => {
+    const res = await api.get<ApiResponse<{ urls: ShortUrl[] }>>("/api/v1/urls", { params });
     return res.data.data?.urls ?? [];
 };
 
