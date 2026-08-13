@@ -1,77 +1,167 @@
-# React + TypeScript + Vite
+# 🔗 URL Shortener — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, modern **URL Shortener** web application built with **React 19**, **TypeScript**, **Tailwind CSS v4**, and **Zustand** for state management. Users can register, log in, shorten URLs, manage their link history, and get redirected instantly via short codes.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Live Demo
 
-## React Compiler
+> **Frontend:** [https://your-app.vercel.app](https://your-app.vercel.app)
+> **Backend API:** [https://your-backend.onrender.com](https://your-backend.onrender.com)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 📁 Related Repository
 
-## Expanding the ESLint configuration
+- 🔧 **Backend:** [URL Shortener Backend](https://github.com/katkamsaiprem/URL)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ✨ Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- 🔐 **Authentication** — Register, Login, Logout with JWT (access + refresh tokens via HttpOnly cookies)
+- 🔗 **Shorten URLs** — Create short links from any long URL
+- 📋 **Dashboard** — View, copy, edit, and delete all your shortened URLs
+- 🛡️ **Protected Routes** — Dashboard accessible only to authenticated users
+- 🔄 **Session Restore** — Auto-restores session on page reload using refresh tokens
+- 📱 **Responsive Design** — Fully mobile-friendly UI with Tailwind CSS v4
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
 
-```
+## 🛠️ Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+| Layer            | Technology                          |
+|------------------|-------------------------------------|
+| Framework        | React 19                            |
+| Language         | TypeScript                          |
+| Styling          | Tailwind CSS v4                     |
+| State Management | Zustand                             |
+| Routing          | React Router DOM v7                 |
+| HTTP Client      | Axios                               |
+| Build Tool       | Vite 8                              |
+| Linting          | ESLint 10 + TypeScript ESLint       |
+| Deployment       | Vercel                              |
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📂 Project Structure
 
 ```
+src/
+├── components/       # Reusable UI components (ProtectedRoute, etc.)
+├── hooks/            # Custom React hooks
+├── pages/            # Route-level page components
+│   ├── Login.tsx
+│   ├── Register.tsx
+│   └── Dashboard.tsx
+├── services/         # Axios API service functions
+├── store/            # Zustand global state stores
+│   └── authStore.ts
+├── types/            # TypeScript type definitions
+├── utils/            # Helper / utility functions
+├── App.tsx           # Root component with routing
+└── main.tsx          # Application entry point
+```
+
+---
+
+## ⚙️ Setup Instructions
+
+### Prerequisites
+
+- **Node.js** v18 or higher
+- **npm** v9 or higher
+- A running instance of the [URL Shortener Backend](https://github.com/katkamsaiprem/URL)
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/katkamsaiprem/URL_Shortener_Frontend.git
+cd URL_Shortener_Frontend
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure Environment Variables
+
+Create a `.env` file in the project root by copying the example:
+
+```bash
+cp .env.example .env
+```
+
+Then update the values:
+
+```env
+# Backend API Base URL
+VITE_API_BASE_URL=http://localhost:3000
+```
+
+> ⚠️ All Vite environment variables **must** be prefixed with `VITE_` to be accessible in the browser.
+
+### 4. Start the Development Server
+
+```bash
+npm run dev
+```
+
+The app will be available at **http://localhost:5173**.
+
+---
+
+## 🔑 Environment Variables
+
+| Variable            | Description                          | Example                                |
+|---------------------|--------------------------------------|----------------------------------------|
+| `VITE_API_BASE_URL` | Base URL of the backend REST API     | `http://localhost:3000`                |
+
+See [`.env.example`](.env.example) for the full template.
+
+---
+
+## 📜 Available Scripts
+
+| Script          | Description                              |
+|-----------------|------------------------------------------|
+| `npm run dev`   | Start the Vite dev server (hot-reload)   |
+| `npm run build` | Compile TypeScript and bundle for prod   |
+| `npm run preview` | Preview the production build locally  |
+| `npm run lint`  | Run ESLint across the project            |
+
+---
+
+## 🖥️ Pages & Routes
+
+| Route         | Component     | Auth Required |
+|---------------|---------------|---------------|
+| `/`           | Login         | ❌            |
+| `/login`      | Login         | ❌            |
+| `/register`   | Register      | ❌            |
+| `/dashboard`  | Dashboard     | ✅            |
+
+---
+
+## 🚢 Deployment (Vercel)
+
+1. Push your code to GitHub.
+2. Import the repository into [Vercel](https://vercel.com).
+3. Add the `VITE_API_BASE_URL` environment variable pointing to your deployed backend.
+4. Vercel automatically detects Vite — click **Deploy**.
+
+The `vercel.json` in this repo configures SPA fallback routing so React Router works correctly on Vercel.
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
+## 📄 License
+
+This project is licensed under the [ISC License](LICENSE).
