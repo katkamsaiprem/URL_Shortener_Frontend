@@ -6,8 +6,8 @@ A clean, modern **URL Shortener** web application built with **React 19**, **Typ
 
 ## 🚀 Live Demo
 
-> **Frontend:** [https://your-app.vercel.app](https://your-app.vercel.app)
-> **Backend API:** [https://your-backend.onrender.com](https://your-backend.onrender.com)
+> **Frontend:** [https://url-shortener-frontend-two-sable.vercel.app](https://url-shortener-frontend-two-sable.vercel.app)
+> **Backend API:** [https://url-vgdx.onrender.com](https://url-vgdx.onrender.com)
 
 ---
 
@@ -117,7 +117,7 @@ The app will be available at **http://localhost:5173**.
 
 | Variable            | Description                          | Example                                |
 |---------------------|--------------------------------------|----------------------------------------|
-| `VITE_API_BASE_URL` | Base URL of the backend REST API     | `http://localhost:3000`                |
+| `VITE_API_BASE_URL` | Base URL of the backend REST API     | `https://url-vgdx.onrender.com`        |
 
 See [`.env.example`](.env.example) for the full template.
 
@@ -149,7 +149,7 @@ See [`.env.example`](.env.example) for the full template.
 
 1. Push your code to GitHub.
 2. Import the repository into [Vercel](https://vercel.com).
-3. Add the `VITE_API_BASE_URL` environment variable pointing to your deployed backend.
+3. Add the `VITE_API_BASE_URL` environment variable: `https://url-vgdx.onrender.com`
 4. Vercel automatically detects Vite — click **Deploy**.
 
 The `vercel.json` in this repo configures SPA fallback routing so React Router works correctly on Vercel.
